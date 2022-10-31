@@ -27,7 +27,7 @@ class Viking(Soldier):
             return("{} has died in act of combat".format(self.name))
     
     def battleCry(self):
-        return "Odin Owns You All"
+        return "Odin Owns You All!"
 
 class Saxon(Soldier):
     def __init__(self, health, strength):
@@ -54,33 +54,29 @@ class War():
     def addSaxon(self, saxon):
         self.saxonArmy.append(saxon)
 
-    def saxonAttack(self):
-        try:
-            viking = self.vikingArmy[random.randint(0,len(self.vikingArmy)-1)]
-            saxon = self.saxonArmy[random.randint(0,len(self.saxonArmy)-1)]
-        except:
-            pass
-        viking.receiveDamage(saxon.strength)
-        if viking.health < 0:
+    def saxonAttack(self): #Try Except deberías usarlo donde tu código pueda fallar, si accedes a una posición pocha de la lista, pule tu código
+        viking = self.vikingArmy[random.randint(0,len(self.vikingArmy)-1)]
+        saxon = self.saxonArmy[random.randint(0,len(self.saxonArmy)-1)]
+        aux = viking.receiveDamage(saxon.strength)
+        if viking.health <= 0: #Faltaba contemplar la salud con valor 0 con el =
             self.vikingArmy.remove(viking)
+        return aux #Hay que devolver el resultado de receiveDamage
 
     def vikingAttack(self):
-        try:
-            viking = self.vikingArmy[random.randint(0,len(self.vikingArmy)-1)]
-            saxon = self.saxonArmy[random.randint(0,len(self.saxonArmy)-1)]
-        except:
-            pass
-        saxon.receiveDamage(viking.strength)
-        if saxon.health < 0:
+        viking = self.vikingArmy[random.randint(0,len(self.vikingArmy)-1)]
+        saxon = self.saxonArmy[random.randint(0,len(self.saxonArmy)-1)]
+        aux = saxon.receiveDamage(viking.strength)
+        if saxon.health <= 0: #Faltaba contemplar la salud con valor 0 con el =
             self.saxonArmy.remove(saxon)
+        return aux #Hay que devolver el resultado de receiveDamage
 
-    def showstatus(self):
+    def showStatus(self):
         if len(self.saxonArmy) == 0:
-            print("Vikings have won the war of the century!")
+            return("Vikings have won the war of the century!") #Hay que devolver el string
         elif len(self.vikingArmy) == 0:
-            print("Saxons have fought for their lives and survive another day...")ç
+            return("Saxons have fought for their lives and survive another day...") #Hay que devolver el string
         else:
-            print("Vikings and Saxons are still in the thick of battle.")
+            return("Vikings and Saxons are still in the thick of battle.") #Hay que devolver el string
 
 
     
